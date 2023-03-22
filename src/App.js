@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
-import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
@@ -61,11 +60,6 @@ import './App.css';
 
 //   return requestOptions
 // }
-
-
-const app = new Clarifai.App({
-  apiKey: 'f35da08c1cf3468989bcbdb6d36ab62f'
-});
 
 const initialState = {
   input: '',
@@ -206,15 +200,14 @@ class App extends Component {
   // })
   // .catch(err => console.log(err));
 
-
-  app.models
-  .predict(
-    {
-      id: 'face-detection',
-      name: 'face-detection',
-      version: '6dc7e46bc9124c5c8824be4822abe105',
-      type: 'visual-detector',
-    }, this.state.input)
+  fetch('http://localhost:3000/imageurl', {
+    method: 'post',
+    headers: {'Content-Type' : 'application/json'},
+    body: JSON.stringify({
+      input: this.state.input
+    })
+  })
+  .then(response => response.json())
   .then(response => {
     console.log('hi', response)
     if (response) {
