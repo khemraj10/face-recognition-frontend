@@ -1,6 +1,7 @@
 import React from "react";
 
 class Signin extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +18,6 @@ class Signin extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    // console.log(this.state);
     fetch('http://localhost:3000/signin',  {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -26,10 +26,8 @@ class Signin extends React.Component {
         password: this.state.signInPassword
       })
     })
-      .then(response => response.json())
-      // .then(console.log) 
+      .then(response => response.json()) 
       .then(user => {
-        // console.log(user)
         if (user.id) {
           this.props.loaduser(user)
           this.props.onRouteChange('home');
@@ -38,7 +36,9 @@ class Signin extends React.Component {
   }
 
   render() {
+    
     const { onRouteChange } = this.props;
+
     return (
       <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">
@@ -49,23 +49,16 @@ class Signin extends React.Component {
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
                 <input 
                 className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-                type="email" 
-                name="email-address" 
-                id="email-address" 
-                onChange={this.onEmailChange}
+                type="email" name="email-address" id="email-address" onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                 <input 
                 className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-                type="password" 
-                name="password" 
-                id="password" 
-                onChange={this.onPasswordChange}
+                type="password" name="password" id="password" onChange={this.onPasswordChange}
                 />
               </div>
-              {/* <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label> */}
             </fieldset>
             <div className="">
               <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
@@ -73,7 +66,6 @@ class Signin extends React.Component {
             </div>
             <div className="lh-copy mt3">
               <p onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>
-              {/* <a href="#0" className="f6 link dim black db">Forget your password?</a> */}
             </div>
           </div>
         </main>

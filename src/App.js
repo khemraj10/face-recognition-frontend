@@ -9,18 +9,6 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
-// const particlesOptions = {
-//   particles: {
-//     line_linked: {
-//       shadow: {
-//         enable: true,
-//         colour: '#3CA9D1',
-//         blur: 5
-//       }
-//     }
-//   }
-// }
-
 // const returnClarifaiRequestOptions = (imageUrl) => {
 //   // Your PAT (Personal Access Token) can be found in the portal under Authentification
 //   const PAT = 'ae61ff41aa9c40bd97c72db4e910120f';
@@ -93,21 +81,11 @@ class App extends Component {
     })
   }
 
-  // componentDidMount() {
-  //   fetch('http://localhost:3000/')
-  //     // .then(response => console.log(response))
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-  // }
-
   calculateFaceLocation = (data) => {
-    // console.log(data.outputs[0].data.regions[0].region_info.bounding_box);
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image =  document.getElementById('inputimage');
-    // console.log(image)
     const width = Number(image.width);
     const height = Number(image.height);
-    // console.log(width, height);
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row *  height,
@@ -117,62 +95,15 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    // console.log(box);
     this.setState({box: box});
   }
 
   onInputChange = (event) => {
-    // console.log(event.target.value);
     this.setState({ input: event.target.value });
   }
 
   onButtonSubmit = () => {    
     this.setState({ imageUrl: this.state.input });
-
-    // Deprecated way or old way
-    // console.log('click')
-    // app.models.predict("aaa03c23b3724a16a56b629203edc62c", "https://samples.clarifai.com/face-det.jpg")
-    // app.models.predict(Clarifai.COLOR_MODEL, "https://samples.clarifai.com/face-det.jpg")
-    // app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-    // app.models.predict("6dc7e46bc9124c5c8824be4822abe105", this.state.input)
-    // app.models.predict("aaa03c23b3724a16a56b629203edc62c", this.state.input)
-    // .then(
-    //   function(response) {
-    //     console.log(response)
-    //     console.log(response.outputs[0].data.region[0].region_info.bounding_box);
-    //     this.calculateFaceLocation(response);
-    //   },
-    //   function(err) {
-    //     console.log(err);
-    //   }
-    // );
-
-    // Old New way
-    // app.models.predict("53e1df302c079b3db8a0a36033ed2d15", this.state.input)
-    // .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-    //     // console.log(response)
-    //     // console.log(response.outputs[0].data.region[0].region_info.bounding_box);
-    // .catch(err => console.log(err));
-
-    // // New way
-  //   app.models.predict({
-  //     id: 'face-detection',
-  //     name: 'face-detection',
-  //     version: '6dc7e46bc9124c5c8824be4822abe105',
-  //     type: 'visual-detector',
-  //   }, this.state.input)
-  //   .then(response => console.log(response))
-  //   .then(response => console.log(response))
-  //   // .then(response => console.log(response.outputs[0].data.regions[0].region_info.bounding_box))
-  //   // .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-  //   .catch(err => console.log(err));
-  // }
-
-  // Clarifai way 
-  // fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", returnClarifaiRequestOptions(this.state.imageUrl))
-  // .then(response => response.json())
-  // .then(result => console.log(result))
-  // .catch(error => console.log('error', error));
 
   // Clarifai And Andrei Way
   // fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", returnClarifaiRequestOptions(this.state.imageUrl))
@@ -220,10 +151,6 @@ class App extends Component {
       })
         .then(response => response.json())
         .then(count => {
-          // this.setState({
-          //   {user: {
-          //   entries: count
-          // }})
           this.setState(Object.assign(this.state.user, { entries: count }))
         })
       .catch(err => console.log(err))
@@ -233,13 +160,8 @@ class App extends Component {
   .catch(err => console.log(err));
   }
 
-  // onRouteChange = () => {
-  //   this.setState({route: 'home'});
-  // }
-
   onRouteChange = (route) => {
     if (route === 'signin') {
-      // this.setState({isSignedIn: false})
       this.setState(initialState);
     } else if (route === 'home') {
       this.setState({isSignedIn: true});
@@ -248,10 +170,11 @@ class App extends Component {
   }
 
   render() {
+
     const { isSignedIn, imageUrl, route, box } = this.state; 
+    
     return (
       <div className="App">
-        {/* <ParticlesBg params={particlesOptions} /> */}
         <ParticlesBg className="particles" num={150} color='#FFFFFF' type='cobweb' bg={true} />
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
         { route === 'home'
