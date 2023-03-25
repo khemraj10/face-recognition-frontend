@@ -9,46 +9,6 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
-// const returnClarifaiRequestOptions = (imageUrl) => {
-//   // Your PAT (Personal Access Token) can be found in the portal under Authentification
-//   const PAT = 'ae61ff41aa9c40bd97c72db4e910120f';
-//   // Specify the correct user_id/app_id pairings
-//   // Since you're making inferences outside your app's scope
-//   const USER_ID = 'khemraj';
-//   const APP_ID = 'test';
-//   // Change these to whatever model and image URL you want to use
-//   // const MODEL_ID = 'face-detection';
-//   // const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
-//   const IMAGE_URL = 'imageUrl';
-
-//   const raw = JSON.stringify({
-//     "user_app_id": {
-//       "user_id": USER_ID,
-//       "app_id": APP_ID
-//     },
-//     "inputs": [
-//       {
-//         "data": {
-//           "image": {
-//             "url": IMAGE_URL
-//           }
-//         }
-//       }
-//     ]
-//   });
-
-//   const requestOptions = {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Authorization': 'Key ' + PAT
-//         },
-//         body: raw
-//     };
-
-//   return requestOptions
-// }
-
 const initialState = {
   input: '',
   imageUrl: '',
@@ -104,14 +64,19 @@ class App extends Component {
 
   onButtonSubmit = () => {    
     this.setState({ imageUrl: this.state.input });
-
-  // Clarifai And Andrei Way
-  // fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", returnClarifaiRequestOptions(this.state.imageUrl))
+  
+  // fetch(import.meta.env.REACT_APP_LOCAL_URL + 'imageurl', {
+  //   method: 'post',
+  //   headers: {'Content-Type' : 'application/json'},
+  //   body: JSON.stringify({
+  //     input: this.state.input
+  //   })
+  // })
   // .then(response => response.json())
   // .then(response => {
   //   console.log('hi', response)
   //   if (response) {
-  //     fetch('http://localhost:3000/image', {
+  //     fetch(import.meta.env.REACT_APP_LOCAL_URL + '/image', {
   //       method: 'put',
   //       headers: {'Content-Type': 'application/json'},
   //       body: JSON.stringify({
@@ -131,7 +96,7 @@ class App extends Component {
   // })
   // .catch(err => console.log(err));
 
-  fetch('http://localhost:3000/imageurl', {
+  fetch(import.meta.env.REACT_APP_LOCAL_URL + 'imageurl', {
     method: 'post',
     headers: {'Content-Type' : 'application/json'},
     body: JSON.stringify({
@@ -142,7 +107,7 @@ class App extends Component {
   .then(response => {
     console.log('hi', response)
     if (response) {
-      fetch('http://localhost:3000/image', {
+      fetch(import.meta.env.REACT_APP_LOCAL_URL + 'image', {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
