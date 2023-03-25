@@ -65,7 +65,7 @@ class App extends Component {
   onButtonSubmit = () => {    
     this.setState({ imageUrl: this.state.input });
   
-  // fetch(import.meta.env.REACT_APP_LOCAL_URL + 'imageurl', {
+  // fetch(process.env.REACT_APP_URL + 'imageurl', {
   //   method: 'post',
   //   headers: {'Content-Type' : 'application/json'},
   //   body: JSON.stringify({
@@ -76,7 +76,7 @@ class App extends Component {
   // .then(response => {
   //   console.log('hi', response)
   //   if (response) {
-  //     fetch(import.meta.env.REACT_APP_LOCAL_URL + '/image', {
+  //     fetch(process.env.REACT_APP_URL + '/image', {
   //       method: 'put',
   //       headers: {'Content-Type': 'application/json'},
   //       body: JSON.stringify({
@@ -96,7 +96,7 @@ class App extends Component {
   // })
   // .catch(err => console.log(err));
 
-  fetch(import.meta.env.REACT_APP_LOCAL_URL + 'imageurl', {
+  fetch(process.env.REACT_APP_URL + 'imageurl', {
     method: 'post',
     headers: {'Content-Type' : 'application/json'},
     body: JSON.stringify({
@@ -107,7 +107,7 @@ class App extends Component {
   .then(response => {
     console.log('hi', response)
     if (response) {
-      fetch(import.meta.env.REACT_APP_LOCAL_URL + 'image', {
+      fetch(process.env.REACT_APP_URL + 'image', {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
